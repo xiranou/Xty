@@ -3,7 +3,7 @@ class CartsController < ApplicationController
 
   def show
     cart_ids = $redis.smembers(current_user_cart)
-    @cart_movies = Product.find(cart_ids)
+    @cart_products = Product.find(cart_ids)
   end
 
   def add
