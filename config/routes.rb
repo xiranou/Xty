@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
+  get 'carts/show'
   devise_for :users
-  root "products#index"
   resources :products, only: [:index, :show]
+  root "products#index"
 end
