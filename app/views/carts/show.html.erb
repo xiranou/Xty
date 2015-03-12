@@ -4,7 +4,11 @@
   <tr>
     <td><%= product.name %></td>
     <td><%= product.price %></td>
-    <td><%= link_to "Remove" %></td>
+    <td>
+      <%=link_to "" , data: {targetUrl: remove_from_cart_path(product)} do%>
+        <i>x</i>
+      <%end%>
+    </td>
   </tr>
   <% end %>
 </table>
