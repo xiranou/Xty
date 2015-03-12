@@ -1,13 +1,20 @@
 <nav>
   <section>
-      <ul>
-        <%if signed_in?%>
-          <li><%=link_to current_user.email, edit_user_registration_path%></li>
-          <li><%=link_to "Logout", destroy_user_session_path, method: :delete%></li>
-        <%else%>
-          <li><%=link_to "Register", new_user_registration_path%></li>
-          <li><%=link_to "Login", new_user_session_path%></li>
+    <ul>
+      <%if signed_in?%>
+      <li>
+        <%= link_to cart_path do%>
+        <i></i>
+        My Cart
+        (<span><%=current_user.cart_count%></span>)
         <%end%>
-      </ul>
-    </section>
+      </li>
+      <li><%=link_to current_user.email, edit_user_registration_path%></li>
+      <li><%=link_to "Logout", destroy_user_session_path, method: :delete%></li>
+      <%else%>
+      <li><%=link_to "Register", new_user_registration_path%></li>
+      <li><%=link_to "Login", new_user_session_path%></li>
+      <%end%>
+    </ul>
+  </section>
 </nav>
