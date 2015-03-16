@@ -1,11 +1,11 @@
 <h1>Carts#show</h1>
 <table>
   <% @cart_products.each do |product| %>
-  <tr>
+  <tr class="product-in-cart">
     <td><%= product.name %></td>
     <td><%= product.price %></td>
     <td>
-      <%=link_to "" , data: {targetUrl: remove_from_cart_path(product)} do%>
+      <%=link_to "" , class: "cart-remove-button", data: {targetUrl: remove_from_cart_path(product)} do%>
         <i>x</i>
       <%end%>
     </td>
