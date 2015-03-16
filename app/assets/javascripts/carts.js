@@ -1,4 +1,5 @@
 $(function () {
+
   $('body').on('click', '.cart-button', function(event) {
     event.preventDefault();
     $button = $(this);
@@ -24,6 +25,21 @@ $(function () {
       $button.find('span').html(new_target);
       $button.data('target', new_target);
     });
-
   });
+
+  $('body').on('click', '.cart-remove-button', function(event) {
+    event.preventDefault();
+    $link = $(this);
+    $.ajax({
+      url: $link.data("targeturl"),
+      type: 'Put',
+      dataType: 'json'
+    })
+    .done(function(count) {
+      $('.cart-count').html(count);
+      $link.closest('.product-in-cart').slideUp(400);
+    });
+  });
+
+
 });
