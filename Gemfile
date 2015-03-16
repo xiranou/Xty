@@ -37,6 +37,9 @@ gem 'devise', '~> 3.4.0'
 # Redis
 gem 'redis', '~> 3.0.1'
 
+# Braintree
+gem 'braintree'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
