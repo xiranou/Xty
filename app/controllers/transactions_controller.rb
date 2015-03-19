@@ -6,6 +6,11 @@ class TransactionsController < ApplicationController
     gon.client_token = generate_braintree_client_token
   end
 
+  def create
+    # TODO find the Product
+    # use product.checkout(params[:payment_method_nonce]) to send out the checkout
+  end
+
   private
 
   def check_cart!
