@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'transactions/new'
+  resource :transactions, only: [:new, :create]
 
   resource :cart, only: [:show] do
     put 'add/:product_id', to: 'carts#add', as: :add_to
