@@ -9,7 +9,7 @@ class TransactionsController < ApplicationController
   private
 
   def check_cart!
-    if current_user.get_cart_movies.blank?
+    if current_user.products_in_cart.blank?
       redirect_to root_url, alert: "Your cart is empty!"
     end
   end
