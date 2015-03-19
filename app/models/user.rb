@@ -10,4 +10,9 @@ class User < ActiveRecord::Base
   def cart_count
     $redis.scard("cart#{id}")
   end
+
+  def products_in_cart
+    cart_ids = $redis.smembers("cart#{id}")
+    Product.find(cart_ids)
+  end
 end
