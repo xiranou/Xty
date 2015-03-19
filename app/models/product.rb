@@ -9,4 +9,11 @@ class Product < ActiveRecord::Base
       "Add to"
     end
   end
+
+  def checkout(nonce, current_user)
+    result = Braintree::Transaction.sale(
+      amount: self.price,
+      payment_method_nonce: nonce
+      )
+  end
 end
