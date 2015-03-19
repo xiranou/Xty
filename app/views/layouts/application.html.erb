@@ -2,7 +2,8 @@
 <html>
 <head>
   <title>Xty</title>
-  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= include_gon %>
+  <%= stylesheet_link_tag 'application', media: 'all' %>
   <%= csrf_meta_tags %>
 </head>
 <body>
