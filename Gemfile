@@ -40,6 +40,9 @@ gem 'redis', '~> 3.0.1'
 # Braintree
 gem 'braintree'
 
+# .env
+gem 'dotenv'
+
 # Gon
 gem 'gon'
 
