@@ -10,7 +10,7 @@
       <%end%>
     </td>
     <td>
-      <%= link_to "Checkout", new_transactions_path %>
+      <%= link_to "Checkout", new_transactions_path(product_id: product.id) %>
     </td>
   </tr>
   <% end %>
