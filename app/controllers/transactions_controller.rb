@@ -10,8 +10,7 @@ class TransactionsController < ApplicationController
     @product = Product.find(params[:product_id])
     result = @product.checkout(params[:payment_method_nonce], current_user)
     if result.success?
-      # TODO Remove product from cart, look into redis
-      # $redis.srem(current_user, @product.id)
+      $redis.srem(current_user_cart, @product.id)
       redirect_to root_path, notice: "Success!"
     else
       redirect_to root_path, alert: result.errors
@@ -19,6 +18,8 @@ class TransactionsController < ApplicationController
   end
 
   private
+
+  include UserCart
 
   def check_cart!
     if current_user.products_in_cart.blank?
