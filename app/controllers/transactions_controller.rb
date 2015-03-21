@@ -11,7 +11,12 @@ class TransactionsController < ApplicationController
     result = @product.checkout(params[:payment_method_nonce], current_user)
     if result.success?
       $redis.srem(current_user_cart, @product.id)
-      redirect_to root_path, notice: "Success!"
+      flash[:notice] = "Success!"
+      if current_user.cart_count > 0
+        redirect_to cart_path
+      else
+        redirect_to root_path
+      end
     else
       redirect_to root_path, alert: result.errors
     end
