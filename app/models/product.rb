@@ -10,7 +10,8 @@ class Product < ActiveRecord::Base
     end
   end
 
-  def checkout(nonce, quantity)
+  def checkout(nonce, current_user_cart)
+    quantity = current_quantities(current_user_cart)
     amount = self.price * quantity
     result = Braintree::Transaction.sale(
       amount: amount,
@@ -19,6 +20,6 @@ class Product < ActiveRecord::Base
   end
 
   def current_quantities(current_user_cart)
-    $redis.hget(current_user_cart, id)
+    $redis.hget(current_user_cart, id).to_f
   end
 end
