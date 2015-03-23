@@ -8,7 +8,7 @@ class TransactionsController < ApplicationController
 
   def create
     product = Product.find(params[:product_id])
-    result = product.checkout(params[:payment_method_nonce])
+    result = product.checkout(params[:payment_method_nonce], params[:quantity].to_f)
     if result.success?
       $redis.hdel(current_user_cart, product.id)
       flash[:notice] = "Success!"
