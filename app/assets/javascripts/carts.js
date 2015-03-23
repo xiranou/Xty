@@ -18,7 +18,9 @@ $(function () {
 
     $.ajax({
       url: url,
-      type: 'put'
+      type: 'put',
+      dataType: 'json',
+      data: $form.serialize()
     })
     .done(function(data) {
       $('.cart-count').html(data);
