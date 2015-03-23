@@ -11,7 +11,7 @@
       <%end%>
     </td>
     <td>
-      <%= link_to "Checkout", new_transactions_path(product_id: product.id) %>
+      <%= link_to "Checkout", new_transactions_path(product_id: product.id, quantity: product.current_quantities(@current_user_cart)) %>
     </td>
   </tr>
   <% end %>
