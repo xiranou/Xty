@@ -1,3 +1,3 @@
 Etsy clone :]
 
-TODO: Add quantity for buying products
+TODO: add feature for user to update item quantities in cart/during checkout
