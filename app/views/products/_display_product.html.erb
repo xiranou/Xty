@@ -11,6 +11,17 @@
       <td><%= link_to product.name, product %></td>
       <td>$ <%= product.price %></td>
     </tr>
+
+    <% if signed_in? %>
+    <tr>
+      <td>
+        <%= form_tag('', class: 'cart-form', data: {target: @cart_action, addUrl: add_to_cart_path(@product), removeUrl: remove_from_cart_path(@product)}) do %>
+          <%= submit_tag @cart_action %>
+        <% end %>
+      </td>
+    </tr>
+    <% end %>
+
     <% end %>
   </tbody>
 </table>
