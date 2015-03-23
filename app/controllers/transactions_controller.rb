@@ -7,11 +7,12 @@ class TransactionsController < ApplicationController
   end
 
   def create
-    @product = Product.find(params[:product_id])
-    result = @product.checkout(params[:payment_method_nonce], current_user)
+    product = Product.find(params[:product_id])
+    result = product.checkout(params[:payment_method_nonce])
     if result.success?
-      $redis.srem(current_user_cart, @product.id)
+      $redis.hdel(current_user_cart, product.id)
       flash[:notice] = "Success!"
+      current_user.items << product
       if current_user.cart_count > 0
         redirect_to cart_path
       else
