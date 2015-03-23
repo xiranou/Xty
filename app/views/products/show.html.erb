@@ -2,12 +2,6 @@
 
 <%= render partial: "products/display_product", locals: {products: [@product]} %>
 
-<%if signed_in?%>
-  <%=link_to "", class: "button cart-button", data: {target: @cart_action, addUrl: add_to_cart_path(@product), removeUrl: remove_from_cart_path(@product)} do%>
-  <span><%=@cart_action%></span> Cart
-  <%end%>
-<%end%>
-
 <br>
 
 <%= link_to 'Back', products_path %>
