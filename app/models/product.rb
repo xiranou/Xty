@@ -10,9 +10,10 @@ class Product < ActiveRecord::Base
     end
   end
 
-  def checkout(nonce)
+  def checkout(nonce, quantity)
+    amount = self.price * quantity
     result = Braintree::Transaction.sale(
-      amount: self.price,
+      amount: amount,
       payment_method_nonce: nonce
       )
   end
