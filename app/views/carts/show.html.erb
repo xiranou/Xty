@@ -4,6 +4,7 @@
   <tr class="product-in-cart">
     <td><%= product.name %></td>
     <td><%= product.price %></td>
+    <td><%= product.current_quantities(@current_user_cart) %></td>
     <td>
       <%=link_to "" , class: "cart-remove-button", data: {targetUrl: remove_from_cart_path(product)} do%>
         <i>x</i>
