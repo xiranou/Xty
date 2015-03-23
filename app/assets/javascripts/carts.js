@@ -1,18 +1,18 @@
 $(function () {
 
-  $('body').on('click', '.cart-button', function(event) {
+  $('body').on('click', '.cart-form', function(event) {
     event.preventDefault();
-    $button = $(this);
+    $form = $(this);
 
     var url;
     var new_target;
 
 
-    if ($button.data('target') === 'Add to') {
-      url = $button.data("addurl");
+    if ($form.data('target') === 'Add to') {
+      url = $form.data("addurl");
       new_target = "Remove from";
     } else{
-      url = $button.data("removeurl");
+      url = $form.data("removeurl");
       new_target = "Add to";
     }
 
@@ -22,8 +22,8 @@ $(function () {
     })
     .done(function(data) {
       $('.cart-count').html(data);
-      $button.find('span').html(new_target);
-      $button.data('target', new_target);
+      $form.find(':submit').val(new_target);
+      $form.data('target', new_target);
     });
   });
 
