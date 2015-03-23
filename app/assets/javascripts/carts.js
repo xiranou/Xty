@@ -1,6 +1,6 @@
 $(function () {
 
-  $('body').on('click', '.cart-form', function(event) {
+  $('body').on('submit', '.cart-form', function(event) {
     event.preventDefault();
     $form = $(this);
 
