@@ -1,6 +1,6 @@
 <div>
   <h2>New Transaction</h2>
-  <%= form_tag transactions_path(product_id: params[:product_id]) do%>
+  <%= form_tag transactions_path(product_id: params[:product_id], quantity: params[:quantity]) do%>
     <p>Please enter your payment details:</p>
     <div id="dropin"></div>
     <%=submit_tag "Pay" %>
