@@ -8,11 +8,15 @@ class User < ActiveRecord::Base
   has_many :items, through: :purchases, source: :product
 
   def cart_count
-    $redis.hkeys("cart#{id}").count
+    $redis.hkeys(cart).count
   end
 
   def products_in_cart
-    cart_ids = $redis.hkeys("cart#{id}")
+    cart_ids = $redis.hkeys(cart)
     Product.find(cart_ids)
+  end
+
+  def cart
+    "cart#{id}"
   end
 end

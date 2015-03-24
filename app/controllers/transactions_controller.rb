@@ -8,9 +8,9 @@ class TransactionsController < ApplicationController
 
   def create
     product = Product.find(params[:product_id])
-    result = product.checkout(params[:payment_method_nonce], current_user_cart)
+    result = product.checkout(params[:payment_method_nonce], current_user.cart)
     if result.success?
-      $redis.hdel(current_user_cart, product.id)
+      $redis.hdel(current_user.cart, product.id)
       flash[:notice] = "Success!"
       current_user.items << product
       if current_user.cart_count > 0
@@ -24,8 +24,6 @@ class TransactionsController < ApplicationController
   end
 
   private
-
-  include UserCart
 
   def check_cart!
     if current_user.products_in_cart.blank?
