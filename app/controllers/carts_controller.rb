@@ -3,8 +3,8 @@ class CartsController < ApplicationController
 
   def show
     @current_user_cart = current_user_cart
-    cart_ids = $redis.hkeys(@current_user_cart)
-    @cart_products = Product.find(cart_ids)
+    product_ids = $redis.hkeys(@current_user_cart)
+    @cart_products = Product.find(product_ids)
   end
 
   def add
