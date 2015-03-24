@@ -1,19 +1,27 @@
 <h1>Your Cart</h1>
 <table>
-  <% @cart_products.each do |product| %>
-  <tr class="product-in-cart">
-    <td><%= product.name %></td>
-    <td><%= product.price %></td>
-    <td><%= product.current_quantities(@current_user_cart) %></td>
-    <td><%= product.price * product.current_quantities(@current_user_cart) %></td>
-    <td>
-      <%= link_to "Checkout", new_transactions_path(product_id: product.id) %>
-    </td>
-    <td>
-      <%=link_to "" , class: "cart-remove-button", data: {targetUrl: remove_from_cart_path(product)} do%>
+  <thead>
+    <th>Product Name</th>
+    <th>Unit Price</th>
+    <th>Quantity</th>
+    <th>Unit Total</th>
+  </thead>
+  <tbody>
+    <% @cart_products.each do |product| %>
+    <tr class="product-in-cart">
+      <td><%= product.name %></td>
+      <td>$<%= product.price %></td>
+      <td><%= product.current_quantities(@current_user_cart) %></td>
+      <td>$<%= product.price * product.current_quantities(@current_user_cart) %></td>
+      <td>
+        <%= link_to "Checkout", new_transactions_path(product_id: product.id) %>
+      </td>
+      <td>
+        <%=link_to "" , class: "cart-remove-button", data: {targetUrl: remove_from_cart_path(product)} do%>
         <i>x</i>
-      <%end%>
-    </td>
-  </tr>
-  <% end %>
+        <%end%>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
 </table>
