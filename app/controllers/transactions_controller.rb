@@ -4,6 +4,8 @@ class TransactionsController < ApplicationController
 
   def new
     gon.client_token = generate_braintree_client_token
+    @product = Product.find(params[:product_id])
+    @quantities = @product.current_quantities(current_user.cart)
   end
 
   def create
