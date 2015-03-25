@@ -1,5 +1,1 @@
-$redis = if Rails.env.production?
-  Redis.new(:url => ENV['REDISTOGO_URL'])
-else
-  Redis.new
-end
+$redis = Redis.new(:url => ENV['REDISTOGO_URL'])
