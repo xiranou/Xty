@@ -1,6 +1,19 @@
 <div>
-  <h2>New Transaction %></h2>
-  <p><%= @product.name %> | <%= @quantities %> | $<%= @product.price * @quantities %></p>
+  <h2>New Transaction for <%= @product.name %></h2>
+  <table>
+    <thead>
+      <th>Unit Price</th>
+      <th>Quantities</th>
+      <th>Total</th>
+    </thead>
+    <tbody>
+      <tr>
+        <td>$<%= @product.price %></td>
+        <td><%= @quantities %></td>
+        <td>$<%= @product.price * @quantities %></td>
+      </tr>
+    </tbody>
+  </table>
   <%= form_tag transactions_path(product_id: params[:product_id]) do%>
     <p>Please enter your payment details:</p>
     <div id="dropin"></div>
