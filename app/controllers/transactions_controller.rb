@@ -1,7 +1,6 @@
 class TransactionsController < ApplicationController
   before_action :authenticate_user!
-  before_action :check_cart!
-  before_action :set_product, :set_quantities, only: [:new, :create]
+  before_action :set_product, :set_quantities, :check_cart!, only: [:new, :create]
 
   def new
     gon.client_token = generate_braintree_client_token
