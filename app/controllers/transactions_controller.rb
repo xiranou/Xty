@@ -29,7 +29,7 @@ class TransactionsController < ApplicationController
   end
 
   def set_quantities
-    @quantities = @product.current_quantities(current_user.cart)
+    @quantities = set_product.current_quantities(current_user.cart)
   end
 
   def check_cart!
