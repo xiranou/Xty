@@ -9,7 +9,12 @@ class TransactionsController < ApplicationController
   def create
     result = @product.checkout(params[:payment_method_nonce], current_user.cart)
     if result.success?
-      new_purchase(product: @product,buyer: current_user,quantities: @quantities)
+      new_purchase(
+        product: @product,
+        buyer: current_user,
+        quantities: @quantities,
+        transaction_id: result.transaction.id
+        )
       flash[:notice] = "Success! order id: #{result.transaction.id}"
       cart_status_redirect
     else
@@ -21,7 +26,12 @@ class TransactionsController < ApplicationController
 
   def new_purchase(purchase_info={})
     update_cart(purchase_info[:buyer].cart, purchase_info[:product].id)
-    Purchase.create!(product: purchase_info[:product], buyer: purchase_info[:buyer], quantities: purchase_info[:quantities])
+    Purchase.create!(
+      product: purchase_info[:product],
+      buyer: purchase_info[:buyer],
+      quantities: purchase_info[:quantities],
+      transaction_id: purchase_info[:transaction_id]
+      )
   end
 
   def update_cart(cart, product_id)
