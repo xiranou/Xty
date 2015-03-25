@@ -9,20 +9,32 @@ class TransactionsController < ApplicationController
   def create
     result = @product.checkout(params[:payment_method_nonce], current_user.cart)
     if result.success?
-      Purchase.create!(product: @product, buyer: current_user, quantities: @quantities)
-      $redis.hdel(current_user.cart, @product.id)
-      flash[:notice] = "Success!"
-      if current_user.cart_count > 0
-        redirect_to cart_path
-      else
-        redirect_to root_path
-      end
+      new_purchase(product: @product,buyer: current_user,quantities: @quantities)
+      flash[:notice] = "Success! order id: #{result.transaction.id}"
+      cart_status_redirect
     else
       redirect_to root_path, alert: result.errors
     end
   end
 
   private
+
+  def new_purchase(purchase_info={})
+    update_cart(purchase_info[:buyer].cart, purchase_info[:product].id)
+    Purchase.create!(product: purchase_info[:product], buyer: purchase_info[:buyer], quantities: purchase_info[:quantities])
+  end
+
+  def update_cart(cart, product_id)
+    $redis.hdel(cart, product_id)
+  end
+
+  def cart_status_redirect
+    if current_user.cart_count > 0
+      redirect_to cart_path
+    else
+      redirect_to root_path
+    end
+  end
 
   def set_product
     @product = Product.find(params[:product_id])
@@ -39,6 +51,6 @@ class TransactionsController < ApplicationController
   end
 
   def generate_braintree_client_token
-     Braintree::ClientToken.generate
+   Braintree::ClientToken.generate
   end
 end
