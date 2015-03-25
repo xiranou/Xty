@@ -1,6 +1,7 @@
 <nav>
   <section>
     <ul>
+      <li><%= link_to "Home", root_path %></li>
       <%if signed_in?%>
       <li>
         <%= link_to cart_path do%>
