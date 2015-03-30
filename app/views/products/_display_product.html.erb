@@ -1,9 +1,16 @@
 <table>
+  <thead>
+    <th>Name</th>
+    <th>Quantities</th>
+    <th>Unit Price</th>
+  </thead>
+
   <tbody>
 
     <% products.each do |product| %>
     <tr>
       <td><%= link_to product.name, product %></td>
+      <td><%= product.quantities %></td>
       <td>$ <%= product.price %></td>
     </tr>
 
