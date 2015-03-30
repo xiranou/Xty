@@ -22,4 +22,8 @@ class Product < ActiveRecord::Base
   def current_quantities(cart)
     $redis.hget(cart, id).to_i
   end
+
+  def sold_out?
+    quantities <= 0
+  end
 end
