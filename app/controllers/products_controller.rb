@@ -3,7 +3,7 @@ class ProductsController < ApplicationController
   before_action :current_user_id, only: [:index, :show]
 
   def index
-    @products = Product.all
+    @products = Product.where("quantities > 0")
   end
 
   private
