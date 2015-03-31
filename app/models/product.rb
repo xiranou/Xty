@@ -11,8 +11,8 @@ class Product < ActiveRecord::Base
   end
 
   def checkout(nonce, cart)
-    quantity = current_quantities(cart)
-    amount = self.price * quantity
+    checkout_quantities = current_quantities(cart)
+    amount = self.price * checkout_quantities
     result = Braintree::Transaction.sale(
       amount: amount,
       payment_method_nonce: nonce
