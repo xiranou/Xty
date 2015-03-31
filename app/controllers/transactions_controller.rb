@@ -7,10 +7,11 @@ class TransactionsController < ApplicationController
   end
 
   def create
-    if @product.sold_out?
-      redirect_to root_path, alert: "#{@product.name} sold out!"
+    cart = current_user.cart
+    if @product.sold_out? || @product.not_enough?(cart)
+      redirect_to root_path, alert: @product.errors.full_messages
     else
-      result = @product.checkout(params[:payment_method_nonce], current_user.cart)
+      result = @product.checkout(params[:payment_method_nonce], cart)
       if result.success?
         new_purchase(
           product: @product,
