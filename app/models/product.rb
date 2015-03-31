@@ -24,6 +24,16 @@ class Product < ActiveRecord::Base
   end
 
   def sold_out?
-    quantities <= 0
+    if quantities <= 0
+      errors.add(quantities: "Sorry, #{name} already sold out!")
+      return true
+    end
+  end
+
+  def not_enough?(cart)
+    if quantities < current_quantities(cart)
+      errors.add(quantities: "Sorry, #{name} doesn't have enough left!")
+      return true
+    end
   end
 end
