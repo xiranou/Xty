@@ -7,18 +7,22 @@ class TransactionsController < ApplicationController
   end
 
   def create
-    result = @product.checkout(params[:payment_method_nonce], current_user.cart)
-    if result.success?
-      new_purchase(
-        product: @product,
-        buyer: current_user,
-        quantities: @quantities,
-        transaction_id: result.transaction.id
-        )
-      flash[:notice] = "Success! order id: #{result.transaction.id}"
-      cart_status_redirect
+    if @product.sold_out?
+      redirect_to root_path, alert: "#{@product.name} sold out!"
     else
-      redirect_to root_path, alert: result.errors
+      result = @product.checkout(params[:payment_method_nonce], current_user.cart)
+      if result.success?
+        new_purchase(
+          product: @product,
+          buyer: current_user,
+          quantities: @quantities,
+          transaction_id: result.transaction.id
+          )
+        flash[:notice] = "Success! order id: #{result.transaction.id}"
+        cart_status_redirect
+      else
+        redirect_to root_path, alert: result.errors
+      end
     end
   end
 
