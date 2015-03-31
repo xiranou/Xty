@@ -12,13 +12,11 @@
       <td><%= link_to product.name, product %></td>
       <td><%= product.quantities %></td>
       <td>$ <%= product.price %></td>
-    </tr>
 
     <% if signed_in? %>
-    <tr>
       <td>
         <%= form_tag('', class: 'cart-form', data: {target: product.cart_action(current_user_id), addUrl: add_to_cart_path(product), removeUrl: remove_from_cart_path(product)}) do %>
-          <%= number_field_tag 'quantity', '1', min: 1 %>
+          <%= number_field_tag 'quantity', '1', min: 1, max: product.quantities %>
           <%= submit_tag "#{product.cart_action(current_user_id)} cart" %>
         <% end %>
       </td>
