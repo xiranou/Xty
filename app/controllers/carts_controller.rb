@@ -2,10 +2,10 @@ class CartsController < ApplicationController
   before_action :authenticate_user!
 
   def show
-    current_user_cart = current_user.cart
-    product_ids = $redis.hkeys(current_user_cart)
+    cart = current_user.cart
+    product_ids = $redis.hkeys(cart)
     @product_info_array = product_ids.map do |product_id|
-      {product: Product.find(product_id), quantities: get_product_quantities(current_user_cart, product_id)}
+      {product: Product.find(product_id), quantities: get_product_quantities(cart, product_id)}
     end
   end
 
@@ -22,6 +22,6 @@ class CartsController < ApplicationController
   private
 
   def get_product_quantities(cart, product_id)
-    $redis.hget(current_user_cart, product_id).to_i
+    $redis.hget(cart, product_id).to_i
   end
 end
