@@ -20,6 +20,7 @@ class TransactionsController < ApplicationController
           transaction_id: result.transaction.id
           )
         flash[:notice] = "Success! order id: #{result.transaction.id}"
+        #TODO update product quantities
         cart_status_redirect
       else
         redirect_to root_path, alert: result.errors
@@ -66,6 +67,6 @@ class TransactionsController < ApplicationController
   end
 
   def generate_braintree_client_token
-   Braintree::ClientToken.generate
+    Braintree::ClientToken.generate
   end
 end
