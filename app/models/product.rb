@@ -11,20 +11,18 @@ class Product < ActiveRecord::Base
   end
 
   def checkout(nonce, cart)
-    checkout_quantities = current_quantities(cart)
-    amount = self.price * checkout_quantities
     result = Braintree::Transaction.sale(
-      amount: amount,
+      amount: total_price(cart),
       payment_method_nonce: nonce
       )
   end
 
-  def current_quantities(cart)
+  def quantities_in_cart(cart)
     $redis.hget(cart, id).to_i
   end
 
-  def total_price(quantities)
-    price * quantities
+  def total_price(cart)
+    price * quantities_in_cart(cart)
   end
 
   def sold_out?
@@ -35,7 +33,7 @@ class Product < ActiveRecord::Base
   end
 
   def not_enough?(cart)
-    if quantities < current_quantities(cart)
+    if quantities < quantities_in_cart(cart)
       errors.add(quantities: "Sorry, #{name} doesn't have enough left!")
       return true
     end
