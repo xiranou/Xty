@@ -4,8 +4,11 @@ class CartsController < ApplicationController
   def show
     cart = current_user.cart
     product_ids = $redis.hkeys(cart)
-    @product_info_array = product_ids.map do |product_id|
-      {product: Product.find(product_id), quantities: get_product_quantities(cart, product_id)}
+    products_in_cart = Product.find(product_ids)
+    @product_info_array = products_in_cart.map do |product|
+      { product: product,
+        quantities: product.current_quantities(cart),
+        total: product.total_price(cart)}
     end
   end
 
@@ -17,11 +20,5 @@ class CartsController < ApplicationController
   def remove
     $redis.hdel(current_user.cart, params[:product_id])
     render json: current_user.cart_count, status: 200
-  end
-
-  private
-
-  def get_product_quantities(cart, product_id)
-    $redis.hget(cart, product_id).to_i
   end
 end
