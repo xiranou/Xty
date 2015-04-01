@@ -12,7 +12,7 @@
       <td><%= product_info[:product].name %></td>
       <td>$<%= product_info[:product].price %></td>
       <td><%= product_info[:quantities] %></td>
-      <td>$<%= product_info[:product].total_price(product_info[:quantities]) %></td>
+      <td>$<%= product_info[:total] %></td>
       <td>
         <%= link_to "Checkout", new_transactions_path(product_id: product_info[:product].id) %>
       </td>
