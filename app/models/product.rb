@@ -23,6 +23,10 @@ class Product < ActiveRecord::Base
     $redis.hget(cart, id).to_i
   end
 
+  def total_price(quantities)
+    price * quantities
+  end
+
   def sold_out?
     if quantities <= 0
       errors.add(quantities: "Sorry, #{name} already sold out!")
