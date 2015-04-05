@@ -3,7 +3,7 @@ class ProductsController < ApplicationController
   before_action :current_user_id, only: [:index, :show]
 
   def index
-    @products = Product.where("quantities > 0")
+    @products = Product.where("quantities > 0").order(:created_at)
   end
 
   private
