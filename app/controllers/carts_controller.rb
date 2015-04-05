@@ -7,7 +7,7 @@ class CartsController < ApplicationController
     products_in_cart = Product.find(product_ids)
     @product_info_array = products_in_cart.map do |product|
       { product: product,
-        quantities: product.current_quantities(cart),
+        quantities: product.quantities_in_cart(cart),
         total: product.total_price(cart)}
     end
   end
