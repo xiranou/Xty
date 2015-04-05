@@ -2,9 +2,14 @@ class CartsController < ApplicationController
   before_action :authenticate_user!
 
   def show
-    @current_user_cart = current_user.cart
-    product_ids = $redis.hkeys(@current_user_cart)
-    @cart_products = Product.find(product_ids)
+    cart = current_user.cart
+    product_ids = $redis.hkeys(cart)
+    products_in_cart = Product.find(product_ids)
+    @product_info_array = products_in_cart.map do |product|
+      { product: product,
+        quantities: product.current_quantities(cart),
+        total: product.total_price(cart)}
+    end
   end
 
   def add

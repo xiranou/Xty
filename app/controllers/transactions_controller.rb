@@ -7,18 +7,24 @@ class TransactionsController < ApplicationController
   end
 
   def create
-    result = @product.checkout(params[:payment_method_nonce], current_user.cart)
-    if result.success?
-      new_purchase(
-        product: @product,
-        buyer: current_user,
-        quantities: @quantities,
-        transaction_id: result.transaction.id
-        )
-      flash[:notice] = "Success! order id: #{result.transaction.id}"
-      cart_status_redirect
+    cart = current_user.cart
+    if @product.sold_out? || @product.not_enough?(cart)
+      redirect_to root_path, alert: @product.errors.full_messages
     else
-      redirect_to root_path, alert: result.errors
+      result = @product.checkout(params[:payment_method_nonce], cart)
+      if result.success?
+        new_purchase(
+          product: @product,
+          buyer: current_user,
+          quantities: @quantities,
+          transaction_id: result.transaction.id
+          )
+        flash[:notice] = "Success! order id: #{result.transaction.id}"
+        #TODO update product quantities
+        cart_status_redirect
+      else
+        redirect_to root_path, alert: result.errors
+      end
     end
   end
 
@@ -51,7 +57,7 @@ class TransactionsController < ApplicationController
   end
 
   def set_quantities
-    @quantities = set_product.current_quantities(current_user.cart)
+    @quantities = set_product.quantities_in_cart(current_user.cart)
   end
 
   def check_cart!
@@ -61,6 +67,6 @@ class TransactionsController < ApplicationController
   end
 
   def generate_braintree_client_token
-   Braintree::ClientToken.generate
+    Braintree::ClientToken.generate
   end
 end
