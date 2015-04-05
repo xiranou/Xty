@@ -21,6 +21,7 @@ class TransactionsController < ApplicationController
           )
         flash[:notice] = "Success! order id: #{result.transaction.id}"
         #TODO update product quantities
+        update_quantities(@product, @quantities)
         cart_status_redirect
       else
         redirect_to root_path, alert: result.errors
@@ -58,6 +59,15 @@ class TransactionsController < ApplicationController
 
   def set_quantities
     @quantities = set_product.quantities_in_cart(current_user.cart)
+  end
+
+  def update_quantities(product,quantities_sold)
+    new_quantities = product.quantities - quantities_sold
+    if new_quantities <= 0
+      product.destroy
+    else
+      product.update_attribute(:quantities, new_quantities)
+    end
   end
 
   def check_cart!
