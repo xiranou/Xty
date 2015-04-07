@@ -1,4 +1,5 @@
 class Product < ActiveRecord::Base
+  belongs_to :artist
   has_many :purchases
   has_many :buyers, through: :purchases
 
