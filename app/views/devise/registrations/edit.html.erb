@@ -18,6 +18,15 @@
     <%= f.email_field :email %>
   </div>
 
+  <!-- Shipping Addresses -->
+  <div class="field">
+    <h3>Shipping Address</h3>
+    <%= f.fields_for :shipping_addresses, resource.shipping_addresses.new do |shipping| %>
+      <%= shipping.label :street_address %> <br>
+      <%= shipping.text_field :street_address %>
+    <% end %>
+  </div>
+
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>
