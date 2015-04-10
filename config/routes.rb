@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     put 'remove/:product_id', to: 'carts#remove', as: :remove_from
   end
 
-  devise_for :users
+  devise_for :users, controllers: {registrations: 'users/registrations'}
 
   resources :products, only: [:index, :show]
 
