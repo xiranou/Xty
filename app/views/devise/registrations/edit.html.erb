@@ -21,10 +21,23 @@
   <!-- Shipping Addresses -->
   <div class="field">
     <h3>Shipping Address</h3>
-    <%= f.fields_for :shipping_addresses, resource.shipping_addresses.new do |shipping| %>
-      <%= shipping.label :street_address %> <br>
-      <%= shipping.text_field :street_address %>
-    <% end %>
+
+      <%= f.fields_for :shipping_addresses, resource.shipping_addresses.new do |shipping| %>
+        <%= shipping.label :street_address %> <br>
+        <%= shipping.text_field :street_address %>
+        <%= shipping.fields_for :city, City.new do |city| %>
+          <%= city.label :city_name %>
+          <%= city.text_field :name %>
+          <%= city.fields_for :zipcodes, Zipcode.new do |zipcode| %>
+            <%= zipcode.label :zip %>
+            <%= zipcode.text_field :zip %>
+          <% end %>
+          <%= city.fields_for :state do |state| %>
+            <%= state.collection_select :state_id, State.all, :id, :abbrv %>
+          <% end %>
+        <% end %>
+      <% end %>
+
   </div>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
