@@ -1,0 +1,8 @@
+<% @shipping_addresses.each do |shipping_address| %>
+  <%= shipping_address.full_address %>
+<% end %>
+<% @billing_addresses.each do |billing_address| %>
+  <%= billing_address.full_address %>
+<% end %>
+
+<%= link_to "Add Address", new_address_path %>
