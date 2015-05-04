@@ -10,8 +10,6 @@ class User < ActiveRecord::Base
   has_many :billing_addresses, as: :addressable, class_name: "Address"
   has_one :artist
 
-  accepts_nested_attributes_for :shipping_addresses, :billing_addresses
-
   def cart_count
     $redis.hkeys(cart).count
   end
