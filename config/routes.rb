@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :addresses
+
   resource :transactions, only: [:new, :create]
 
   resource :cart, only: [:show] do
