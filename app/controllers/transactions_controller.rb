@@ -20,7 +20,6 @@ class TransactionsController < ApplicationController
           transaction_id: result.transaction.id
           )
         flash[:notice] = "Success! order id: #{result.transaction.id}"
-        #TODO update product quantities
         update_quantities(@product, @quantities)
         cart_status_redirect
       else
