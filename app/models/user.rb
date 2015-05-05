@@ -6,8 +6,8 @@ class User < ActiveRecord::Base
 
   has_many :purchases, foreign_key: :buyer_id
   has_many :items, through: :purchases, source: :product
-  has_many :shipping_addresses, as: :addressable, class_name: "Address"
-  has_many :billing_addresses, as: :addressable, class_name: "Address"
+  has_many :shipping_addresses, as: :addressable
+  has_many :billing_addresses, as: :addressable
   has_one :artist
 
   def cart_count
