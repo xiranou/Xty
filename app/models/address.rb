@@ -6,6 +6,6 @@ class Address < ActiveRecord::Base
   accepts_nested_attributes_for :city
 
   def full_address
-    "#{street_address}, #{city}, #{city.state}, #{zipcode}"
+    "#{street_address}, #{city.name}, #{city.state.abbrv}, #{zipcode}"
   end
 end
