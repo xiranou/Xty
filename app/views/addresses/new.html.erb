@@ -1,15 +1,15 @@
-<%= form_for(@address, :as => :address, :url => {:controller => :addresses}) do |f| %>
+<%= form_for @address, as: :address, url: {controller: :addresses} do |f| %>
   <%= f.label :street_address %>
   <%= f.text_field :street_address %>
-  <%= f.fields_for :city, @city do |city_field| %>
-    <%= city_field.label :city_name %>
-    <%= city_field.text_field :name %>
-    <%= city_field.collection_select(:state_id, @states, :id, :abbrv, {prompt: "Select a state"}) %>
-    <%= city_field.fields_for :zipcodes, @zipcode do |zip_field| %>
-      <%= zip_field.label :zip %>
-      <%= zip_field.text_field :zip %>
-    <% end %>
-  <%= hidden_field_tag "type", params[:type] %>
-  <%= f.submit "Add!" %>
+  <%= f.fields_for :city, @city do |city| %>
+    <%= city.label :city_name %>
+    <%= city.text_field :name %>
+    <%= city.collection_select :state_id, @states, :id, :abbrv, prompt: "Select a state" %>
   <% end %>
+  <%= f.fields_for :zipcode, @zipcode do |zipcode| %>
+    <%= zipcode.label :zip %>
+    <%= zipcode.text_field :zip %>
+  <% end %>
+  <%= hidden_field_tag 'type', params[:type] %>
+  <%= f.submit "Add!" %>
 <% end %>
