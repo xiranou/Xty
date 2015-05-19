@@ -1,14 +1,14 @@
 <div>
   <h1>Shipping Addresses</h1>
   <% @shipping_addresses.each do |shipping_address| %>
-    <%= shipping_address.full_address %>
+    <p><%= shipping_address.full_address %></p>
   <% end %>
   <%= link_to "Add Shipping Address", new_address_path(type: "shipping") %>
 </div>
 <div>
   <h1>Billing Addresses</h1>
   <% @billing_addresses.each do |billing_address| %>
-    <%= billing_address.full_address %>
+    <p><%= billing_address.full_address %></p>
   <% end %>
   <%= link_to "Add Billing Address", new_address_path(type: "billing") %>
 </div>
