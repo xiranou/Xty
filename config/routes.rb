@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resource :artists
+
   resources :addresses
 
   resource :transactions, only: [:new, :create]
