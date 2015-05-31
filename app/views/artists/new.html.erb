@@ -1,0 +1,57 @@
+<h1>Artist Sign Up!</h1>
+<p>We gonna need something from you first:</p>
+<%= form_tag("/artists", method: :post) do %>
+  <div>
+    <%= label_tag("individual[first_name]", "First Name") %>
+    <%= text_field_tag("individual[first_name]") %>
+  </div>
+  <div>
+    <%= label_tag("individual[last_name]", "Last Name") %>
+    <%= text_field_tag("individual[last_name]") %>
+  </div>
+  <div>
+    <%= label_tag("individual[email]", "Email") %>
+    <%= text_field_tag("individual[email]", @artist.email) %>
+  </div>
+  <div>
+    <%= label_tag("individual[phone]", "Phone") %>
+    <%= text_field_tag("individual[phone]") %>
+  </div>
+  <div>
+    <%= label_tag("individual[ssn]", "SSN") %>
+    <%= text_field_tag("individual[ssn]") %>
+  </div>
+  <div>
+    <%= label_tag("individual[address]", "Personal Address") %>
+    <%= collection_select("individual", "address", @artist.shipping_addresses, :id, :full_address) %>
+  </div>
+  <div>
+    <%= label_tag("business[legal_name]", "Legal Name") %>
+    <%= text_field_tag("business[legal_name]") %>
+  </div>
+  <div>
+    <%= label_tag("business[dba_name]", "DBA Name") %>
+    <%= text_field_tag("business[dba_name]") %>
+  </div>
+  <div>
+    <%= label_tag("business[tax_id]", "Tax ID") %>
+    <%= text_field_tag("business[tax_id]") %>
+  </div>
+  <div>
+    <%= label_tag("business[address]", "Business Address") %>
+    <%= collection_select("business", "address", @artist.billing_addresses, :id, :full_address) %>
+  </div>
+  <div>
+    <%= label_tag("funding[account_number]", "Account Number") %>
+    <%= text_field_tag('funding[account_number]') %>
+  </div>
+  <div>
+    <%= label_tag("funding[routing_number]", "Routing Number") %>
+    <%= text_field_tag('funding[routing_number]') %>
+  </div>
+  <div id="tos">
+    <p>[MSP NAME] uses Braintree, a division of PayPal, Inc. (Braintree) for payment processing services. By using the Braintree payment processing services you agree to the Braintree Payment Services Agreement available at https://www.braintreepayments.com/legal/gateway-agreement, and the applicable bank agreement available at https://www.braintreepayments.com/legal/cea-wells.</p>
+    <%= label_tag("tos[accepted]", "Accept") %>
+    <%= check_box_tag("tos", "1", false, ) %>
+  </div>
+<% end %>
