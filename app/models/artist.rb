@@ -6,4 +6,12 @@ class Artist < ActiveRecord::Base
   def billing_addresses
     user.billing_addresses
   end
+
+  def shipping_addresses
+    user.shipping_addresses
+  end
+
+  def email
+    user.email
+  end
 end
