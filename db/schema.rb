@@ -28,14 +28,8 @@ ActiveRecord::Schema.define(version: 20150617041603) do
 
   create_table "artists", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "approval_status"
-    t.string   "funding_destination"
-    t.string   "account_number"
-    t.string   "routing_number"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
-    t.string   "legal_name"
-    t.string   "tax_id"
   end
 
   create_table "cities", force: :cascade do |t|
