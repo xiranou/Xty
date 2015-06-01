@@ -12,11 +12,8 @@ class ArtistsController < ApplicationController
   end
 
   def parse_params(user_params)
-    user_params.each do |section, info|
-      case section
-      when "individual", "business"
-        info[:address] = parse_address(info[:address])
-      end
+    user_params.slice(:individual, :business).each do |section, info|
+      info[:address] = parse_address(info[:address])
     end
   end
 
