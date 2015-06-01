@@ -6,12 +6,12 @@ class ArtistsController < ApplicationController
   end
 
   def create
-    parse_params(params)
-    parse_date(params)
+    parse_address_params(params)
+    parse_date_params(params)
     render text: params
   end
 
-  def parse_params(user_params)
+  def parse_address_params(user_params)
     user_params.slice(:individual, :business).each do |section, info|
       info[:address] = parse_address(info[:address])
     end
@@ -27,7 +27,7 @@ class ArtistsController < ApplicationController
     }
   end
 
-  def parse_date(user_params)
+  def parse_date_params(user_params)
     date = Date.new(
         user_params[:individual]["date_of_birth(1i)"].to_i,
         user_params[:individual]["date_of_birth(2i)"].to_i,
