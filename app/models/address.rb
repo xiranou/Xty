@@ -9,6 +9,10 @@ class Address < ActiveRecord::Base
     "#{street_address}, #{city.name}, #{city.state.abbrv}, #{zipcode.zip}"
   end
 
+  def state
+    city.state
+  end
+
   private
 
   def capitalize_name
