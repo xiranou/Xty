@@ -7,6 +7,7 @@ class ArtistsController < ApplicationController
 
   def create
     parse_params(params)
+    parse_date(params)
     render text: params
   end
 
@@ -27,5 +28,17 @@ class ArtistsController < ApplicationController
       region: address.state.abbrv,
       postal_code: address.zipcode.zip
     }
+  end
+
+  def parse_date(user_params)
+    date = Date.new(
+        user_params[:individual]["date_of_birth(1i)"].to_i,
+        user_params[:individual]["date_of_birth(2i)"].to_i,
+        user_params[:individual]["date_of_birth(3i)"].to_i
+      ).strftime("%Y-%m-%d")
+    user_params[:individual][:date_of_birth] = date
+    user_params[:individual].delete("date_of_birth(1i)")
+    user_params[:individual].delete("date_of_birth(2i)")
+    user_params[:individual].delete("date_of_birth(3i)")
   end
 end
