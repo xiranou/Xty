@@ -6,13 +6,15 @@ class ArtistsController < ApplicationController
   end
 
   def create
-    parse_address_params(params)
-    parse_date_params(params)
+    parse_address_params
+    parse_date_params
     render text: params
   end
 
-  def parse_address_params(user_params)
-    user_params.slice(:individual, :business).each do |section, info|
+  private
+
+  def parse_address_params
+    params.slice(:individual, :business).each do |section, info|
       info[:address] = parse_address(info[:address])
     end
   end
@@ -27,15 +29,15 @@ class ArtistsController < ApplicationController
     }
   end
 
-  def parse_date_params(user_params)
+  def parse_date_params
     date = Date.new(
-        user_params[:individual]["date_of_birth(1i)"].to_i,
-        user_params[:individual]["date_of_birth(2i)"].to_i,
-        user_params[:individual]["date_of_birth(3i)"].to_i
+        params[:individual]["date_of_birth(1i)"].to_i,
+        params[:individual]["date_of_birth(2i)"].to_i,
+        params[:individual]["date_of_birth(3i)"].to_i
       ).strftime("%Y-%m-%d")
-    user_params[:individual][:date_of_birth] = date
-    user_params[:individual].delete("date_of_birth(1i)")
-    user_params[:individual].delete("date_of_birth(2i)")
-    user_params[:individual].delete("date_of_birth(3i)")
+    params[:individual][:date_of_birth] = date
+    params[:individual].delete("date_of_birth(1i)")
+    params[:individual].delete("date_of_birth(2i)")
+    params[:individual].delete("date_of_birth(3i)")
   end
 end
