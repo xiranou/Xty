@@ -6,8 +6,7 @@ class ArtistsController < ApplicationController
   end
 
   def create
-    parse_address_params
-    parse_date_params
+    generate_braintree_params
     render text: params
   end
 
@@ -39,5 +38,25 @@ class ArtistsController < ApplicationController
     params[:individual].delete("date_of_birth(1i)")
     params[:individual].delete("date_of_birth(2i)")
     params[:individual].delete("date_of_birth(3i)")
+  end
+
+  def parse_funding_params
+    params[:funding][:destination] = Braintree::MerchantAccount::FundingDestination::Bank
+  end
+
+  def parse_tos
+    params[:tos_accepted] = if params[:tos] == '1'
+      true
+    else
+      false
+    end
+  end
+
+  def generate_braintree_params
+    parse_address_params
+    parse_date_params
+    parse_funding_params
+    parse_tos
+    params[:master_merchant_account_id] = ENV['BRAINTREE_MERCHANT_ID']
   end
 end
