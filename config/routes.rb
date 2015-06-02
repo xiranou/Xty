@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resource :artists
+  resources :artists, except: [:index]
 
   resources :addresses
 
