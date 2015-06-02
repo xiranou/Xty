@@ -1,4 +1,18 @@
-<%= @artist.id %>
-<%= @artist.user_id %>
-<%= @artist.braintree_id %>
-<%= @artist.merchant_status %>
+<table>
+  <thead>
+    <tr>
+      <th>Artist ID</th>
+      <th>User ID</th>
+      <th>Braintree ID</th>
+      <th>Merchant Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= @artist.id %></td>
+      <td><%= @artist.user_id %></td>
+      <td><%= @artist.braintree_id %></td>
+      <td><%= @artist.merchant_status %></td>
+    </tr>
+  </tbody>
+</table>
