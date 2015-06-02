@@ -6,8 +6,8 @@ class ArtistsController < ApplicationController
   end
 
   def create
-    generate_braintree_params
-    render text: params
+    result = Braintree::MerchantAccount.create(generate_braintree_params)
+    render text: result.inspect
   end
 
   private
@@ -58,5 +58,11 @@ class ArtistsController < ApplicationController
     parse_funding_params
     parse_tos
     params[:master_merchant_account_id] = ENV['BRAINTREE_MERCHANT_ID']
+    params.slice(
+      :individual,
+      :business,
+      :tos_accepted,
+      :master_merchant_account_id
+    )
   end
 end
