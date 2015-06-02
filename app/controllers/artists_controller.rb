@@ -1,6 +1,10 @@
 class ArtistsController < ApplicationController
   before_action :authenticate_user!
 
+  def show
+    @artist = Artist.find(params[:id])
+  end
+
   def new
     @artist = current_user.build_artist
   end
