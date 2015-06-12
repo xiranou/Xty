@@ -1,3 +1,1 @@
-Etsy clone :]
-
-TODO: finish nested address form
+Etsy style
