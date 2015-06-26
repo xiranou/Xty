@@ -1,29 +1,9 @@
-<table>
-  <thead>
-    <th>Name</th>
-    <th>Quantities</th>
-    <th>Unit Price</th>
-  </thead>
 
-  <tbody>
-
+<div class="grid">
+  <div class="grid-sizer"></div>
     <% products.each do |product| %>
-    <tr>
-      <td><%= link_to product.name, product %></td>
-      <td><%= product.quantities %></td>
-      <td>$ <%= product.price %></td>
-
-    <% if signed_in? %>
-      <td>
-        <%= form_tag('', class: 'cart-form', data: {target: product.cart_action(current_user_id), addUrl: add_to_cart_path(product), removeUrl: remove_from_cart_path(product)}) do %>
-          <%= number_field_tag 'quantity', '1', min: 1, max: product.quantities %>
-          <%= submit_tag "#{product.cart_action(current_user_id)} cart" %>
-        <% end %>
-      </td>
-    </tr>
-    <% end %>
-
-    <% end %>
-
-  </tbody>
-</table>
+      <div class="grid-item">
+        <%= link_to image_tag(product.photo_url), product %>
+      </div>
+      <% end %>
+</div>

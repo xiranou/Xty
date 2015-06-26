@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app = "fanslu">
 <head>
   <title>Xty</title>
   <%= include_gon %>
@@ -10,7 +10,8 @@
 
   <%= render "layouts/user_nav" %>
   <%= render "layouts/alerts" %>
-
+  <div ng-view>
+  </div>
   <%= yield %>
 
   <script src="https://js.braintreegateway.com/v2/braintree.js"></script>
