@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  scope '/braintreehooks' do
-    get '/sub_merchant_status', to: 'braintreehooks#verify'
-    post '/sub_merchant_status', to: 'braintreehooks#merchant_status_update'
+  namespace :webhooks do
+    get '/bt_sub_merchant_status', to: 'braintreehooks#verify'
+    post '/bt_sub_merchant_status', to: 'braintreehooks#merchant_status_update'
   end
 
   resources :artists, except: [:index]
